@@ -8,9 +8,20 @@ using WebApplication5.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString =
+    Environment.GetEnvironmentVariable("Pass")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+var user = Environment.GetEnvironmentVariable("SMTP_USER");
+var pass = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+
+builder.WebHost.UseUrls($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT") ?? "8080"}");
+
+
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddHostedService<DailyEmailHostedService>();
 builder.Services.AddScoped<EmailService>();
+builder.WebHost.UseUrls("http://+:10000");
 
 // 1️⃣ データベース接続
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
