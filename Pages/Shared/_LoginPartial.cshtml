@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <span class="nav-link">ようこそ @User.Identity.Name!</span>
+        </li>
+        <li class="nav-item">
+            <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm">
+                <button type="submit" class="nav-link btn btn-link">ログアウト</button>
+            </form>
+
+            <form asp-page="/sheeps/DeleteAccount" method="get">
+                <button type="submit" class="nav-link btn btn-link text-danger">
+                    アカウント削除
+                </button>
+            </form>
+
+        </li>
+    }
+   
+</ul>

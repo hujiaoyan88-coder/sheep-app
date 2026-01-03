@@ -1,0 +1,102 @@
+﻿@page
+@model sheep.Pages.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div style="color:red; font-weight:bold;">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<!-- サイドメニュー -->
+<div class="layout">
+    <aside class="side-menu">
+        <div class="sign play-guide-sign" id="howToPlaySign">遊び方</div>
+
+        <form method="post" class="sign">
+            <input type="text" name="Name" placeholder="名前" required size="10" />
+
+            <!-- 🎨 カラーサークル -->
+            <p>
+                <input type="color" name="Color" value="#ff0000" />
+                <button type="submit">登録</button>
+            </p>
+        </form>
+
+
+        <div class="sign quiz-sign">
+            <div id="quizHint"></div>
+        </div>
+    </aside>
+
+
+
+<hr />
+<div id="sheepField">
+    <!-- 羊たち -->
+
+<div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div class="sheep-container">
+    @foreach (var sheep in Model.Sheeps)
+    {
+        <div class="sheep" 
+             data-id="@sheep.Id"
+             data-name="@System.Net.WebUtility.HtmlEncode(sheep.Name)"
+             onclick="checkSheep(this)">
+
+            <!-- 🐑 下：元の羊 -->
+            <img src="/images/ひつじ.png" class="base" width="80" height="80" />
+
+            <!-- 🎨 上：色が変わる透過レイヤー -->
+            <div class="overlay"
+                 style="background-color:@(sheep.Color ?? "#ff0000");">
+            </div>
+
+        </div>
+    }
+    </div>
+</div>
+</div>
+
+</div>
+
+
+<!-- クイズ用表示 -->
+<div id="quizHint" style="margin-top:16px; font-weight:bold;"></div>
+<div id="quizResult" style="margin-top:8px; color:green; font-weight:bold;"></div>
+
+    
+<div id="sheepModal">
+    <div>
+        <p id="sheepModalText"></p>
+        <button id="okButton">OK</button>
+        <button id="deleteButton">削除</button>
+    </div>
+</div>
+
+    <!-- 遊び方モーダル -->
+    <div id="howtoModal" class="modal">
+        <div class="modal-content">
+            <h2>🐏 遊び方</h2>
+            <p>
+                ・名前と色を決めて羊を登録してください<br>
+                ・羊は15匹まで登録できます<br>
+                ・21時以降はクイズが出ます<br>
+                ・正解の羊をクリックすると成功！<br>
+            </p>
+
+            <button id="closeHowToPlay">閉じる</button>
+        </div>
+    </div>
+
+
+
+

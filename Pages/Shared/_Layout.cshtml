@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - メリー</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+
+<body>
+    
+    <header>
+        @await Html.PartialAsync("_LoginPartial")
+    </header>
+    
+    <main role="main" class="pb-3">
+        @RenderBody()
+
+    </main>
+        
+    <footer>
+        
+        <p>&copy; 2025 - 良い睡眠</p>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
