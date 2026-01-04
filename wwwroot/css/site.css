@@ -23,14 +23,20 @@
     }
 
 /* ===== 基本 ===== */
+
+html, body {
+    height: 100%; /* min-heightよりheightの方が安定します */
+    margin: 0;
+    padding: 0;
+}
+
 html {
-    font-size: 28px;
-    min-height: 100%;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 32px;
+        font-size: 16px;
     }
 }
 
@@ -69,8 +75,8 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 150px;
-    padding: 30px 20px;
+    height: 75px;
+    padding: 15px 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,7 +84,7 @@ body {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 200%;
+    width: 100%;
 }
 
 form.sign {
@@ -87,8 +93,8 @@ form.sign {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 150px;
-    padding: 30px 20px;
+    height: 75px;
+    padding: 15px 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +102,7 @@ form.sign {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 200%;
+    width: 100%;
 }
 
     form.sign p {
@@ -152,8 +158,8 @@ form.sign {
 
 .sheep {
     position: absolute;
-    width: 160px;
-    height: 160px;
+    width: 80px;
+    height: 80px;
     cursor: pointer;
     z-index: 10;
 }
