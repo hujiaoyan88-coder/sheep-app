@@ -9,15 +9,9 @@
             <span class="nav-link">ようこそ @User.Identity.Name!</span>
         </li>
         <li class="nav-item">
-            <form method="post" asp-area="Identity" asp-page="/Pages/Loout" id="logoutForm">
-                <button type="submit" class="nav-link btn btn-link">ログアウト</button>
-            </form>
+            <a asp-page="//Account/Logout" class="nav-link">ログアウト</a>
 
-            <form asp-page="/sheeps/DeleteAccount" method="get">
-                <button type="submit" class="nav-link btn btn-link text-danger">
-                    アカウント削除
-                </button>
-            </form>
+            <a asp-page="/sheeps/DeleteAccount" class="nav-link text-danger">アカウント削除</a>
 
         </li>
     }

@@ -26,7 +26,7 @@ public class DeleteAccountModel : PageModel
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Login");
         }
 
         await _signInManager.SignOutAsync();
@@ -48,7 +48,7 @@ public class DeleteAccountModel : PageModel
             }
         }
 
-        return RedirectToPage("/Index");
+        return RedirectToPage("/Login");
     }
 }
 
