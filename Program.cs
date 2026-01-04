@@ -40,6 +40,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = false;      // 大文字必須 → なし
     options.Password.RequireNonAlphanumeric = false; // 記号必須 → なし
     options.Password.RequiredLength = 4;
+    options.SignIn.RequireConfirmedAccount = false;　// メール確認不要
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
