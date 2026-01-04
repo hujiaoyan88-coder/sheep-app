@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace WebApplication5.Services
 {
@@ -24,14 +25,12 @@ namespace WebApplication5.Services
 
             foreach (var user in users)
             {
-
                 if (!string.IsNullOrEmpty(user.Email))
                 {
                     await _emailSender.SendEmailAsync(
                         user.Email,
                         "羊を探してください",
-                        "<p>羊を探してください🐏</p>" +
-                        "<p><a>ログイン</a></p>"
+                        "<p>羊を探してください🐏</p>"
                     );
                 }
             }

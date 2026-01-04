@@ -10,15 +10,14 @@ namespace WebApplication5.Services
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-           
 
 
+            var password = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
             var smtp = new SmtpClient("smtp.gmail.com", 587)
             {   //Gmailにログインしてメールを送らせてください
                 Credentials = new NetworkCredential(
                     "hujiaoyan88@gmail.com",
-                    "uggv lhdy ybxm prng"
-                ),
+                    password),
                 EnableSsl = true
             };
 

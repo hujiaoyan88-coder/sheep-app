@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+ï»¿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -91,7 +91,7 @@ namespace WebApplication5.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("https://sheep-app.onrender.com/");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -103,7 +103,7 @@ namespace WebApplication5.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("https://sheep-app.onrender.com/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -123,12 +123,12 @@ namespace WebApplication5.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("ƒ†[ƒU[ƒAƒJƒEƒ“ƒg‚ªƒƒbƒNƒAƒEƒg‚³‚ê‚Ü‚µ‚½B");
+                    _logger.LogWarning("ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãŒãƒ­ãƒƒã‚¯ã•ã‚Œã¾ã—ãŸã€‚");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "ƒƒOƒCƒ“‚É¸”s‚µ‚Ü‚µ‚½Bƒ[ƒ‹ƒAƒhƒŒƒX‚Ü‚½‚ÍƒpƒXƒ[ƒh‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB");
+                    ModelState.AddModelError(string.Empty, "ãƒ­ã‚°ã‚¤ãƒ³ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
                     return Page();
                 }
             }

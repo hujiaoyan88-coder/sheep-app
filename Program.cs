@@ -5,18 +5,22 @@ using Microsoft.Extensions.DependencyInjection;
 using sheep.Data;
 using WebApplication5.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString =
     Environment.GetEnvironmentVariable("Pass")
     ?? builder.Configuration.GetConnectionString("DefaultConnection");
 var user = Environment.GetEnvironmentVariable("SMTP_USER");
-var pass = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+var password = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
 
 builder.WebHost.UseUrls($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT") ?? "8080"}");
 
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // HTTPSを強制
+    options.Cookie.SameSite = SameSiteMode.Lax;
+});
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddHostedService<DailyEmailHostedService>();

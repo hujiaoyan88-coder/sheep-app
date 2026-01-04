@@ -24,13 +24,13 @@
 
 /* ===== 基本 ===== */
 html {
-    font-size: 14px;
+    font-size: 28px;
     min-height: 100%;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 32px;
     }
 }
 
@@ -69,8 +69,8 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 75px;
-    padding: 15px 10px;
+    height: 150px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,7 +78,7 @@ body {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 100%;
+    width: 200%;
 }
 
 form.sign {
@@ -87,8 +87,8 @@ form.sign {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 75px;
-    padding: 15px 10px;
+    height: 150px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +96,7 @@ form.sign {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 100%;
+    width: 200%;
 }
 
     form.sign p {
@@ -152,8 +152,8 @@ form.sign {
 
 .sheep {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     cursor: pointer;
     z-index: 10;
 }
