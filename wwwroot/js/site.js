@@ -116,8 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
     if (sheepField && sheeps.length > 0) {
-        const SHEEP_SIZE = 80;
-        const BOTTOM_MARGIN = 40;
+        const SHEEP_SIZE = 150;
 
         const sheepData = Array.from(sheeps).map(el => {
             const x = Math.random() * (sheepField.clientWidth - SHEEP_SIZE);
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animate() {
             const maxX = sheepField.clientWidth - SHEEP_SIZE;
-            const maxY = sheepField.clientHeight - SHEEP_SIZE - BOTTOM_MARGIN;
+            const maxY = sheepField.clientHeight - SHEEP_SIZE;
 
             sheepData.forEach(s => {
                 s.x += s.dx;

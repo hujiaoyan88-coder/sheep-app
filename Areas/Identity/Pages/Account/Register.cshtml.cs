@@ -110,34 +110,32 @@ namespace WebApplication5.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // ↓↓【ここから削除・変更】↓↓
-                    // 確認メール用のトークン生成やURL作成（callbackUrl）のコードは不要になるので削除または無視します。
-
-                    // 登録後、即座にログインさせる
+                    // 登録後、即座にログイン（サインイン）を実行
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    // 指定されたリダイレクト先（通常はトップページ）へ移動
+                    _logger.LogInformation("User logged in immediately.");
                     return LocalRedirect(returnUrl);
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // 失敗した場合は入力画面を再表示
             return Page();
         }
 

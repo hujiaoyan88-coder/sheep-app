@@ -15,7 +15,17 @@ public class EmailSender : IEmailSender
         var from = new EmailAddress(_config["SendGrid:FromEmail"], "Sheep App Support");
         var to = new EmailAddress(email);
         var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
+        
 
         await client.SendEmailAsync(msg);
+
+        var response = await client.SendEmailAsync(msg);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var body = await response.Body.ReadAsStringAsync();
+            throw new Exception($"SendGrid Error: {response.StatusCode} {body}");
+        }
+
     }
 }

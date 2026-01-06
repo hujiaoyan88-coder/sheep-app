@@ -31,7 +31,7 @@ html, body {
 }
 
 html {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -61,7 +61,9 @@ body {
 .side-menu {
     top: 80px;
     left: 0;
-    width: 200px;
+    flex: 0 0 25%;
+    min-width: 240px;
+    max-width: 300px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -75,7 +77,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 75px;
+    height: 100%;
     padding: 15px 10px;
     display: flex;
     flex-direction: column;
@@ -84,16 +86,16 @@ body {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 100%;
+    width: auto;
 }
 
 form.sign {
-
+    font-size: 2rem;
     background-image: url('../images/看板.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 75px;
+    height: 100%;
     padding: 15px 10px;
     display: flex;
     flex-direction: column;
@@ -102,7 +104,7 @@ form.sign {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
-    width: 100%;
+    width: auto;
 }
 
     form.sign p {
@@ -148,7 +150,7 @@ form.sign {
     float: right;
     position: relative;
     width: 100%;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 80px);
     overflow: hidden;
     background-image: url('../images/芝生.png');
     background-repeat: repeat; /* ← パターン表示 */
@@ -158,8 +160,8 @@ form.sign {
 
 .sheep {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
     z-index: 10;
 }
