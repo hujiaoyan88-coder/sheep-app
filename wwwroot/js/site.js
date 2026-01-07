@@ -109,6 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem(quizStorageKey, today);
             } else {
                 resultDiv.innerText = '';
+                window.showSheepModal = (name, id) => {
+                    if (!sheepmodal || !sheepmodalText) return;
+                    sheepmodalText.innerText = `${name} です`;
+                    sheepmodal.dataset.sheepId = id;
+                    sheepmodal.style.display = 'flex';
+                };
             }
         }
     };
@@ -116,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
     if (sheepField && sheeps.length > 0) {
-        const SHEEP_SIZE = 150;
+        const SHEEP_SIZE = 300;
 
         const sheepData = Array.from(sheeps).map(el => {
             const x = Math.random() * (sheepField.clientWidth - SHEEP_SIZE);

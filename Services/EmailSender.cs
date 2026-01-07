@@ -15,8 +15,11 @@ namespace WebApplication5.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+            Console.WriteLine("📧 SendEmailAsync 開始");
+
             if (string.IsNullOrWhiteSpace(_apiKey))
             {
+                Console.WriteLine("❌ SENDGRID_API_KEY が空");
                 return;
             }
 
@@ -33,6 +36,8 @@ namespace WebApplication5.Services
             );
 
             await client.SendEmailAsync(msg);
+
+            Console.WriteLine("📧 SendEmailAsync 完了");
         }
     }
 }

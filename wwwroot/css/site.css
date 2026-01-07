@@ -92,19 +92,44 @@ body {
     cursor: pointer;
 }
 
-    .quiz,
-    form.sign p {
-        margin: 0; /* <p>の上下の余白をなくす */
-        padding: 0;
-        line-height: 1; /* 行間を詰める */
-    }
 
-    form.sign input, form.sign button {
-        vertical-align: middle; /* 水平方向に揃える */
-    }
+form.sign p {
+    font-size: 50px;
+    margin: 0; /* <p>の上下の余白をなくす */
+    padding: 0;
+    line-height: 1; /* 行間を詰める */
+}
+
+form.sign input, form.sign button {
+    vertical-align: middle; /* 水平方向に揃える */
+    font-size: 50px;
+}
+
+.quiz {
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+#quizHint {
+    font-size: clamp(18px, 4vw, 28px);
+    line-height: 1.2;
+    word-break: break-word;
+    white-space: normal;
+}
+
+#quizResult {
+    font-size: clamp(20px, 4vw, 32px);
+    line-height: 1.2;
+}
+
 
 /* ===== 羊 ===== */
-
 #sheepField {
     position: relative;
     width: 100%;
@@ -117,8 +142,8 @@ body {
 
 .sheep {
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 300px;
     cursor: pointer;
     z-index: 10;
 }
@@ -126,8 +151,8 @@ body {
     .sheep img.base {
         position: absolute;
         inset: 0;
-        width: 150px;
-        height: 150px;
+        width: 300px;
+        height: 300px;
     }
 
     .sheep .overlay {
