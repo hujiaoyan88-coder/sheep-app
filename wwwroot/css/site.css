@@ -1,81 +1,4 @@
-﻿/* ===== 基本設定 ===== */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 16px;
-}
-
-body {
-    margin-bottom: 60px;
-    overflow-y: auto;
-}
-
-.layout {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    min-height: 100vh;
-}
-
-/* ===== サイドメニュー（左1/4） ===== */
-.side-menu {
-    flex: 0 0 25%;
-    min-width: 240px;
-    max-width: 300px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: sticky;
-    top: 80px;
-}
-
-/* ===== メインコンテンツ（右3/4） ===== */
-main {
-    flex: 1;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* ===== 看板スタイル（縮小防止） ===== */
-.sign,
-form.sign {
-    width: 100%;
-    aspect-ratio: 1;
-    background-image: url('../images/看板.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px #000;
-    cursor: pointer;
-    font-size: 2rem;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-    form.sign p {
-        margin: 0;
-        padding: 0;
-        line-height: 1;
-    }
-
-    form.sign input,
-    form.sign button {
-        vertical-align: middle;
-    }
-
-/* ===== モーダル ===== */
+﻿
 .modal,
 #sheepModal {
     display: none;
@@ -87,24 +10,126 @@ form.sign {
     z-index: 9999;
 }
 
-    .modal-content,
     #sheepModal > div {
-        background-color: #fff;
+        background-color: white;
         padding: 20px;
         border-radius: 8px;
         min-width: 200px;
         text-align: center;
     }
 
-/* ===== 羊フィールド ===== */
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.ue {
+    display: flex;
+}
+
+/* ===== 基本 ===== */
+
+html, body {
+    height: 100%; /* min-heightよりheightの方が安定します */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+.layout {
+    display: flex;
+    align-items: flex-start;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+body {
+    margin-bottom: 60px;
+    overflow-y: auto; /* ← スクロール復活 */
+}
+
+.side-menu {
+    top: 80px;
+    left: 0;
+    flex: 0 0 25%;
+    min-width: 240px;
+    max-width: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.sign {
+    float: left;
+    background-image: url('../images/看板.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+    width: auto;
+}
+
+form.sign {
+    font-size: 2rem;
+    background-image: url('../images/看板.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+    width: auto;
+}
+
+    .quiz,
+    form.sign p {
+        margin: 0; /* <p>の上下の余白をなくす */
+        padding: 0;
+        line-height: 1; /* 行間を詰める */
+    }
+
+    form.sign input, form.sign button {
+        vertical-align: middle; /* 水平方向に揃える */
+    }
+
+/* ===== 羊 ===== */
+
 #sheepField {
     position: relative;
     width: 100%;
     height: calc(100vh - 80px);
-    overflow: hidden; /* はみ出し防止 */
+    overflow: hidden;
     background-image: url('../images/芝生.png');
-    background-repeat: repeat;
-    background-size: auto;
+    background-repeat: repeat; /* ← パターン表示 */
+    background-size: auto; /* 元画像サイズそのまま */
 }
 
 .sheep {
@@ -113,54 +138,16 @@ form.sign {
     height: 150px;
     cursor: pointer;
     z-index: 10;
-    /* スマホ縮小に備えて、top/leftの最大値をcalcで調整可能 */
-    max-width: 100%;
-    max-height: 100%;
 }
 
     .sheep img.base {
-        position: absolute;
         inset: 0;
         width: 150px;
         height: 150px;
-        object-fit: contain;
     }
 
     .sheep .overlay {
-        position: absolute;
         inset: 0;
         -webkit-mask: url('/images/色変更.png') center / 100% 100% no-repeat;
         mask: url('/images/色変更.png') center / 100% 100% no-repeat;
     }
-
-/* ===== レスポンシブ（スマホ対応） ===== */
-@media (max-width: 767px) {
-    .layout {
-        flex-direction: column; /* サイド上、メイン下 */
-    }
-
-    .side-menu {
-        width: 100%;
-        flex: none;
-        top: auto;
-        position: relative;
-    }
-
-    .sign,
-    form.sign {
-        width: 100%;
-        aspect-ratio: 1;
-    }
-
-    /* 🐑 羊を80pxに縮小 */
-    .sheep {
-        width: 80px;
-        height: 80px;
-    }
-
-        .sheep img.base {
-            width: 80px;
-            height: 80px;
-        }
-
-}
