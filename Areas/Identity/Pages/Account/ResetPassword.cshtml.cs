@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+ï»¿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -49,7 +49,7 @@ namespace WebApplication5.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "{2}•¶šˆÈã•K—v‚Å‚·B", MinimumLength = 4)]
+            [StringLength(100, ErrorMessage = "{2}æ–‡å­—ä»¥ä¸Šå¿…è¦ã§ã™ã€‚", MinimumLength = 4)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -59,7 +59,7 @@ namespace WebApplication5.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "ƒpƒXƒ[ƒh‚ÆŠm”F—pƒpƒXƒ[ƒh‚ªˆê’v‚µ‚Ü‚¹‚ñ")]
+            [Compare("Password", ErrorMessage = "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>

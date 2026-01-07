@@ -1,31 +1,38 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Net.Mail;
 
-public class EmailSender : IEmailSender
+namespace WebApplication5.Services
 {
-    private readonly IConfiguration _config;
-    public EmailSender(IConfiguration config) => _config = config;
-
-    public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+    public class SendGridEmailSender : IEmailSender
     {
-        var apiKey = _config["SendGrid:ApiKey"];
-        var client = new SendGridClient(apiKey);
-        var from = new EmailAddress(_config["SendGrid:FromEmail"], "Sheep App Support");
-        var to = new EmailAddress(email);
-        var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
-        
+        private readonly string _apiKey;
 
-        await client.SendEmailAsync(msg);
-
-        var response = await client.SendEmailAsync(msg);
-
-        if (!response.IsSuccessStatusCode)
+        public SendGridEmailSender(string apiKey) 
         {
-            var body = await response.Body.ReadAsStringAsync();
-            throw new Exception($"SendGrid Error: {response.StatusCode} {body}");
+            _apiKey = apiKey;
         }
 
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            if (string.IsNullOrWhiteSpace(_apiKey))
+            {
+                return;
+            }
+
+            var client = new SendGridClient(_apiKey);
+            var from = new EmailAddress("hujiaoyan88@gmail.com", "メリーさん");
+            var to = new EmailAddress(email);
+
+            var msg = MailHelper.CreateSingleEmail(
+                from,
+                to,
+                subject,
+                null,
+                htmlMessage
+            );
+
+            await client.SendEmailAsync(msg);
+        }
     }
 }

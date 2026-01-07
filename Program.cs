@@ -7,11 +7,14 @@ using WebApplication5.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString =
-    Environment.GetEnvironmentVariable("Pass")
-    ?? builder.Configuration.GetConnectionString("DefaultConnection");
-var user = Environment.GetEnvironmentVariable("SMTP_USER");
-var password = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+builder.Configuration.AddEnvironmentVariables();
+
+// SendGrid API Key を環境変数から取得
+var sendGridApiKey = builder.Configuration["SENDGRID__APIKEY"];
+
+builder.Services.AddTransient<IEmailSender>(sp =>
+    new SendGridEmailSender(sendGridApiKey)
+);
 
 builder.WebHost.UseUrls($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT") ?? "8080"}");
 
@@ -22,7 +25,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.Lax;
 });
 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 builder.Services.AddHostedService<DailyEmailHostedService>();
 builder.Services.AddScoped<EmailService>();
 builder.WebHost.UseUrls("http://+:10000");
