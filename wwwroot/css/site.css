@@ -29,6 +29,7 @@
 
 .ue {
     display: flex;
+    gap: 10px;
 }
 
 /* ===== 基本 ===== */
@@ -61,7 +62,6 @@ body {
 }
 
 .side-menu {
-    top: 80px;
     left: 0;
     flex: 0 0 25%;
     min-width: 240px;
@@ -74,7 +74,6 @@ body {
 }
 
 .sign {
-    float: left;
     background-image: url('../images/看板.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -91,22 +90,8 @@ body {
     width: auto;
 }
 
-form.sign {
-    font-size: 2rem;
-    background-image: url('../images/看板.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    padding: 15px 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px #000;
-    width: auto;
+.play-guide-sign {
+    cursor: pointer;
 }
 
     .quiz,
@@ -141,12 +126,14 @@ form.sign {
 }
 
     .sheep img.base {
+        position: absolute;
         inset: 0;
         width: 150px;
         height: 150px;
     }
 
     .sheep .overlay {
+        position: absolute;
         inset: 0;
         -webkit-mask: url('/images/色変更.png') center / 100% 100% no-repeat;
         mask: url('/images/色変更.png') center / 100% 100% no-repeat;
