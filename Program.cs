@@ -9,12 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
 
-// SendGrid API Key を環境変数から取得
-var sendGridApiKey = builder.Configuration["SENDGRID__APIKEY"];
-
-builder.Services.AddTransient<IEmailSender>(sp =>
-    new SendGridEmailSender(sendGridApiKey)
-);
 
 builder.WebHost.UseUrls($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT") ?? "8080"}");
 
@@ -46,6 +40,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;　// メール確認不要
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// SendGrid API Key を環境変数から取得
+var sendGridApiKey = builder.Configuration["SENDGRID__APIKEY"];
+
+builder.Services.AddTransient<IEmailSender>(sp =>
+    new SendGridEmailSender(sendGridApiKey)
+);
+
 
 // 3️⃣ Razor Pages
 builder.Services.AddRazorPages();

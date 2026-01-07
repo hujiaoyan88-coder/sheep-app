@@ -102,7 +102,15 @@ form.sign p {
 
 form.sign input, form.sign button {
     vertical-align: middle; /* 水平方向に揃える */
-    font-size: 50px;
+    font-size: 40px;
+}
+
+.color-picker {
+    width: 50px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
 }
 
 .quiz {
@@ -142,8 +150,8 @@ form.sign input, form.sign button {
 
 .sheep {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 240px;
+    height: 240px;
     cursor: pointer;
     z-index: 10;
 }
@@ -151,8 +159,8 @@ form.sign input, form.sign button {
     .sheep img.base {
         position: absolute;
         inset: 0;
-        width: 300px;
-        height: 300px;
+        width: 240px;
+        height: 240px;
     }
 
     .sheep .overlay {
