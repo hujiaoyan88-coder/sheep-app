@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+ï»¿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -21,11 +21,15 @@ namespace WebApplication5.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
 
+
         public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+
+            Console.WriteLine($"ğŸ” IEmailSender å®Ÿä½“: {emailSender.GetType().FullName}");
         }
+        
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -72,14 +76,14 @@ namespace WebApplication5.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "y—rƒAƒvƒŠzƒpƒXƒ[ƒhÄİ’è‚Ì‚²ˆÄ“à",
+                    "ã€ç¾Šã‚¢ãƒ—ãƒªã€‘ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å†è¨­å®šã®ã”æ¡ˆå†…",
                     $@"
-<p>ƒpƒXƒ[ƒhÄİ’è‚Ì‚²ˆË—Š‚ğó‚¯•t‚¯‚Ü‚µ‚½B</p>
+<p>ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å†è¨­å®šã®ã”ä¾é ¼ã‚’å—ã‘ä»˜ã‘ã¾ã—ãŸã€‚</p>
 
-<p>‰º‹LƒŠƒ“ƒN‚©‚çV‚µ‚¢ƒpƒXƒ[ƒh‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B</p>
+<p>ä¸‹è¨˜ãƒªãƒ³ã‚¯ã‹ã‚‰æ–°ã—ã„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚</p>
 
 <p>
-<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ƒpƒXƒ[ƒh‚ğÄİ’è‚·‚é</a></p>");
+<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å†è¨­å®šã™ã‚‹</a></p>");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

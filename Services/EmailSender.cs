@@ -11,6 +11,7 @@ namespace WebApplication5.Services
         public SendGridEmailSender(string apiKey) 
         {
             _apiKey = apiKey;
+            Console.WriteLine("✅ SendGridEmailSender が生成された");
         }
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)

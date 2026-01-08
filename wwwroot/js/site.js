@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().slice(0, 10);
     const quizStorageKey = "sheepQuizDone";
     const now = new Date();
-    const quizActive = (now.getHours() >= 21) && (localStorage.getItem(quizStorageKey) !== today);
+    const quizActive = (now.getHours() >= 18) && (localStorage.getItem(quizStorageKey) !== today);
 
     const sheeps = document.querySelectorAll('.sheep');
     let correctSheep = null;
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultDiv = document.getElementById('quizResult');
             if (el === correctSheep) {
                 resultDiv.innerText = '正解！🎉';
-                localStorage.setItem(quizStorageKey, today);
+                //localStorage.setItem(quizStorageKey, today);
             } else {
                 resultDiv.innerText = '';
                 window.showSheepModal = (name, id) => {
@@ -122,16 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
     if (sheepField && sheeps.length > 0) {
-        const SHEEP_SIZE = 300;
+        const SHEEP_SIZE = 240;
 
         const sheepData = Array.from(sheeps).map(el => {
             const x = Math.random() * (sheepField.clientWidth - SHEEP_SIZE);
             const y = Math.random() * (sheepField.clientHeight - SHEEP_SIZE);
+            const SPEED_MULTIPLIER = 2; 
+
             el.style.transform = `translate(${x}px, ${y}px)`;
             return {
                 el, x, y,
-                dx: (Math.random() * 0.5 + 0.25) * (Math.random() < 0.5 ? 1 : -1),
-                dy: (Math.random() * 0.5 + 0.25) * (Math.random() < 0.5 ? 1 : -1)
+                dx: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1),
+                dy: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1)
             };
         });
 
