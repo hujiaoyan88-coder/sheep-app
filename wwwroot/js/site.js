@@ -109,12 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 //localStorage.setItem(quizStorageKey, today);
             } else {
                 resultDiv.innerText = '';
-                window.showSheepModal = (name, id) => {
-                    if (!sheepmodal || !sheepmodalText) return;
-                    sheepmodalText.innerText = `${name} です`;
-                    sheepmodal.dataset.sheepId = id;
-                    sheepmodal.style.display = 'flex';
-                };
+                window.showSheepModal(name, id);
             }
         }
     };
