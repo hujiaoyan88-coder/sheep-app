@@ -44,9 +44,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 // SendGrid API Key を環境変数から取得
 var sendGridApiKey = builder.Configuration["SENDGRID__APIKEY"];
 
-builder.Services.AddTransient<IEmailSender>(sp =>
-    new SendGridEmailSender(sendGridApiKey)
-);
+builder.Services.AddTransient<IEmailSender, SendGridEmailSender>();
 
 
 // 3️⃣ Razor Pages

@@ -95,7 +95,7 @@ body {
 
 form.sign p {
     font-size: 50px;
-    margin: 0; /* <p>の上下の余白をなくす */
+    margin: 10px; /* <p>の上下の余白をなくす */
     padding: 0;
     line-height: 1; /* 行間を詰める */
 }
@@ -122,18 +122,8 @@ form.sign input, form.sign button {
     align-items: center;
     gap: 8px;
     text-align: center;
-}
-
-#quizHint {
-    font-size: clamp(18px, 4vw, 28px);
-    line-height: 1.2;
-    word-break: break-word;
-    white-space: normal;
-}
-
-#quizResult {
-    font-size: clamp(20px, 4vw, 32px);
-    line-height: 1.2;
+    font-size: 30px;
+    line-height: 1;
 }
 
 
