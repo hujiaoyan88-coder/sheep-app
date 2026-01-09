@@ -51,9 +51,6 @@ builder.Services.Configure<SendGridOptions>(options =>
 
 builder.Services.AddTransient<IEmailSender, SendGridEmailSender>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
 
 
 // 3️⃣ Razor Pages
