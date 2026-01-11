@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().slice(0, 10);
     const quizStorageKey = "sheepQuizDone";
     const now = new Date();
-    const quizActive = (now.getHours() >= 14) && (localStorage.getItem(quizStorageKey) !== today);
+    const quizActive = (now.getHours() >= 21) && (localStorage.getItem(quizStorageKey) !== today);
 
     const sheeps = document.querySelectorAll('.sheep');
     let correctSheep = null;
