@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+ï»¿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,7 +33,7 @@ namespace sheep.Pages
         [BindProperty]
         public required string Color { get; set; }
 
-        // ƒƒOƒCƒ“ƒ†[ƒU[‚Ì—r‚¾‚¯•Ô‚·
+        // ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½Ì—rï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
         public List<SheepEntity> Sheeps { get; set; } = new();
 
         public async Task OnGetAsync()
@@ -55,17 +55,17 @@ namespace sheep.Pages
 
             if (sheepCount >= 15)
             {
-                TempData["ErrorMessage"] = "—r‚Í15•C‚Ü‚Å“o˜^‚Å‚«‚Ü‚·B";
+                TempData["ErrorMessage"] = "ç¾Šã¯15åŒ¹ã¾ã§ç™»éŒ²ã§ãã¾ã™ã€‚";
                 return RedirectToPage();
             }
 
             if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Color))
             {
-                // –¼‘O‚Ìd•¡ƒ`ƒFƒbƒN
+                // ï¿½ï¿½ï¿½Oï¿½Ìdï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
                 bool exists = await _db.Sheeps.AnyAsync(s => s.UserId == userId && s.Name == Name);
                 if (exists)
                 {
-                    TempData["ErrorMessage"] = "‚±‚Ì–¼‘O‚Ì—r‚Í‚·‚Å‚É“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B";
+                    TempData["ErrorMessage"] = "ã“ã®åå‰ã®ç¾Šã¯ã™ã§ã«ç™»éŒ²ã•ã‚Œã¦ã„ã¾ã™ã€‚";
                     return RedirectToPage();
                 }
 
@@ -80,7 +80,7 @@ namespace sheep.Pages
                 await _db.SaveChangesAsync();
             }
 
-            // Name ‚Ü‚½‚Í Color ‚ª‹ó‚Å‚àA•K‚¸ƒy[ƒW‚ğ•Ô‚·
+            // Name ï¿½Ü‚ï¿½ï¿½ï¿½ Color ï¿½ï¿½ï¿½ï¿½Å‚ï¿½Aï¿½Kï¿½ï¿½ï¿½yï¿½[ï¿½Wï¿½ï¿½Ô‚ï¿½
             return RedirectToPage();
         }
 
