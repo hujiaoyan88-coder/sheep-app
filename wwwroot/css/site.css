@@ -62,8 +62,7 @@ body {
 }
 
 .side-menu {
-    left: 0;
-    width: 400px;
+    width: 25vw; /* ← 画面の1/4 */
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -72,11 +71,12 @@ body {
 }
 
 .sign {
+    width: 100%; /* ← side-menu 幅に合わせる */
+    aspect-ratio: 3 / 2;
     background-image: url('../images/看板.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 300px;
     padding: 15px 10px;
     display: flex;
     flex-direction: column;
@@ -128,9 +128,9 @@ form.sign input, form.sign button {
 
 /* ===== 羊 ===== */
 #sheepField {
+    flex: 1; /* ← 残り全部 = 3/4 */
+    height: 100vh;
     position: relative;
-    width: 100%;
-    height: calc(100vh - 80px);
     overflow: hidden;
     background-image: url('../images/芝生.png');
     background-repeat: repeat; /* ← パターン表示 */
@@ -158,3 +158,19 @@ form.sign input, form.sign button {
         -webkit-mask: url('/images/色変更.png') center / 100% 100% no-repeat;
         mask: url('/images/色変更.png') center / 100% 100% no-repeat;
     }
+
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .side-menu {
+        width: 100%;
+    }
+
+    #sheepField {
+        width: 100%;
+        height: 70vh;
+    }
+}

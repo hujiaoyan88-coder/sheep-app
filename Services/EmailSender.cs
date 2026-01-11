@@ -15,7 +15,9 @@ public class SendGridEmailSender : IEmailSender
         Console.WriteLine("✅ SendGridEmailSender が生成された");
 
         if (string.IsNullOrEmpty(_apiKey))
-            throw new InvalidOperationException("SendGrid API Key is missing");
+        {
+            Console.WriteLine("⚠️ SendGrid API Key is missing (email disabled)");
+        }
     }
     
 
