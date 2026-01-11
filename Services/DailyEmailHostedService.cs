@@ -20,7 +20,7 @@ namespace WebApplication5.Services // プロジェクトの名前空間に合わ
             while (!stoppingToken.IsCancellationRequested)
             {
                 var now = DateTime.Now;
-                var nextRunTime = DateTime.Today.AddHours(20); // 今日21時
+                var nextRunTime = DateTime.Today.AddHours(21); // 今日21時
                 if (now > nextRunTime)
                     nextRunTime = nextRunTime.AddDays(1);
 
