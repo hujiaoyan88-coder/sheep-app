@@ -45,7 +45,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 builder.Services.Configure<SendGridOptions>(options =>
 {
-    options.ApiKey = builder.Configuration["SENDGRID__APIKEY"];
+    options.ApiKey = builder.Configuration["SendGrid:ApiKey"];
 });
 
 

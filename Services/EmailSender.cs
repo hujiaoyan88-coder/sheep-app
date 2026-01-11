@@ -30,7 +30,7 @@ public class SendGridEmailSender : IEmailSender
             Console.WriteLine("❌ SENDGRID_API_KEY が空");
             return;
         }
-
+        
         var client = new SendGridClient(_apiKey);
 
         var from = new EmailAddress("hujiaoyan88@gmail.com", "メリーさん");
