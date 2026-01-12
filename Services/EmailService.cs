@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace WebApplication5.Services
 {
@@ -21,17 +24,21 @@ namespace WebApplication5.Services
         public async Task SendDailyEmailsAsync()
         {
             // ここでユーザー一覧を取得
-            var users = _userManager.Users.ToList();
+            var users = await _userManager.Users
+    .Where(u => u.EmailConfirmed)
+    .ToListAsync();
+
 
             foreach (var user in users)
             {
                 if (!string.IsNullOrEmpty(user.Email))
                 {
                     await _emailSender.SendEmailAsync(
-                        user.Email,
-                        "羊を探してください",
-                        "<p>羊を探してください🐏</p>"
-                    );
+    user.Email,
+    "羊を探してください",
+    "<p>羊を探してください🐏<br>" +
+    "<a href=\"https://sheep-app.onrender.com/Identity/Account/Login?ReturnUrl=%2F\">ログイン</a></p>"
+);
                 }
             }
         }
