@@ -1,0 +1,16 @@
+name: Send Daily Mail
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # UTC 12:00 = JST 21:00
+  workflow_dispatch:
+
+jobs:
+  send-mail:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Render API
+        run: |
+          curl -X POST https://sheep-app.onrender.com/api/daily-mail \
+            -H "X-CRON-SECRET: ${{ secrets.DAILY_MAIL_SECRET }}"
