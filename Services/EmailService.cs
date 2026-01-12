@@ -1,46 +1,40 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-
-namespace WebApplication5.Services
+public class EmailService
 {
-    public class EmailService
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly IEmailSender _emailSender;
+
+    public EmailService(
+        UserManager<IdentityUser> userManager,
+        IEmailSender emailSender)
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        _userManager = userManager;
+        _emailSender = emailSender;
+    }
 
-        public EmailService(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+    public async Task SendDailyEmailsAsync()
+    {
+        var users = await _userManager.Users
+            .Where(u => u.EmailConfirmed)
+            .ToListAsync();
+
+        foreach (var user in users)
         {
-            _userManager = userManager;
-            _emailSender = emailSender;
-        }
-
-        // 毎日21時に呼び出されるメソッド
-        public async Task SendDailyEmailsAsync()
-        {
-            // ここでユーザー一覧を取得
-            var users = await _userManager.Users
-    .Where(u => u.EmailConfirmed)
-    .ToListAsync();
-
-
-            foreach (var user in users)
-            {
-                if (!string.IsNullOrEmpty(user.Email))
-                {
-                    await _emailSender.SendEmailAsync(
-    user.Email,
-    "羊を探してください",
-    "<p>羊を探してください🐏<br>" +
-    "<a href=\"https://sheep-app.onrender.com/Identity/Account/Login?ReturnUrl=%2F\">ログイン</a></p>"
-);
-                }
-            }
+            await _emailSender.SendEmailAsync(
+                user.Email,
+                "羊を探してください 🐏",
+                """
+                <p>羊を探してください 🐏</p>
+                <p>
+                  <a href="https://sheep-app.onrender.com/Identity/Account/Login">
+                    ログイン
+                  </a>
+                </p>
+                """
+            );
         }
     }
 }
