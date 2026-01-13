@@ -17,14 +17,18 @@ public class EmailService
 
     public async Task SendDailyEmailsAsync()
     {
+        Console.WriteLine("📨 SendDailyEmailsAsync 開始");
+
         var users = await _userManager.Users
             .Where(u => u.EmailConfirmed)
             .ToListAsync();
 
+        Console.WriteLine($"👥 対象ユーザー数: {users.Count}");
+
         foreach (var user in users)
         {
             await _emailSender.SendEmailAsync(
-                user.Email,
+                 user.Email,
                 "羊を探してください 🐏",
                 """
                 <p>羊を探してください 🐏</p>
