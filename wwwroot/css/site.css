@@ -32,8 +32,8 @@
 
 
 .ue {
-    display: flex;
-    gap: 10px;
+    display: flex; /* フレックスボックス */
+    gap: 10px; /* アイテム間の余白 */
 }
 
 /* ===== 基本 ===== */
@@ -176,7 +176,7 @@ form.sign input, form.sign button {
 
 @media (max-width: 768px) {
     .layout {
-        flex-direction: column;
+        flex-direction: column; /* 縦並びに変更 */
     }
 
     .side-menu {
@@ -185,7 +185,6 @@ form.sign input, form.sign button {
 
     #sheepField {
         width: 100%;
-        height: 700px;
     }
 
     .sheep {
