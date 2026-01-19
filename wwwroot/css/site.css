@@ -182,12 +182,22 @@ form.sign input, form.sign button {
 
 
 @media (max-width: 768px) {
+    .modal-content,
+    #sheepModal > div{
+        font-size: 18px;
+    }
+
     .layout {
         flex-direction: column; /* 縦並びに変更 */
     }
 
     .side-menu {
         width: 100%;
+    }
+
+    form.sign input, form.sign button {
+        vertical-align: middle; /* 水平方向に揃える */
+        font-size: 20px;
     }
 
     #sheepField {

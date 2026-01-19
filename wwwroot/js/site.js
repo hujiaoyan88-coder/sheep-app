@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().slice(0, 10);
     const quizStorageKey = "sheepQuizDone";
     const now = new Date();
-    const quizActive = (now.getHours() >= 21) && (localStorage.getItem(quizStorageKey) !== today);
+    const quizActive = (now.getHours() >= 19) && (localStorage.getItem(quizStorageKey) !== today);
 
     const sheeps = document.querySelectorAll('.sheep');
     let correctSheep = null;
@@ -116,6 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
+
+    let fieldSize = {
+        width: sheepField.clientWidth,
+        height: sheepField.clientHeight
+    };
+
+    window.addEventListener('resize', () => {
+        fieldSize.width = sheepField.clientWidth;
+        fieldSize.height = sheepField.clientHeight;
+    });
+
     if (sheepField && sheeps.length > 0) {
         const SHEEP_SIZE = 240;
 
