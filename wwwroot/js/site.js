@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().slice(0, 10);
     const quizStorageKey = "sheepQuizDone";
     const now = new Date();
-    const quizActive = (now.getHours() >= 19) && (localStorage.getItem(quizStorageKey) !== today);
+    const quizActive = (now.getHours() >= 18) && (localStorage.getItem(quizStorageKey) !== today);
 
     const sheeps = document.querySelectorAll('.sheep');
     let correctSheep = null;
@@ -116,49 +116,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
+    const sheeps = document.querySelectorAll('.sheep');
 
-    let fieldSize = {
-        width: sheepField.clientWidth,
-        height: sheepField.clientHeight
-    };
+    if (!sheepField || sheeps.length === 0) throw new Error("sheepField or sheeps not found");
 
-    window.addEventListener('resize', () => {
-        fieldSize.width = sheepField.clientWidth;
-        fieldSize.height = sheepField.clientHeight;
-    });
+    // 初期化関数
+    function getSheepSize() {
+        return window.innerWidth <= 768 ? 80 : 240;
+    }
 
-    if (sheepField && sheeps.length > 0) {
-        const SHEEP_SIZE = 240;
+    let SHEEP_SIZE = getSheepSize();
 
-        const sheepData = Array.from(sheeps).map(el => {
-            const x = Math.random() * (sheepField.clientWidth - SHEEP_SIZE);
-            const y = Math.random() * (sheepField.clientHeight - SHEEP_SIZE);
-            const SPEED_MULTIPLIER = 2; 
+    // フィールドサイズを取得
+    function getFieldSize() {
+        return {
+            width: sheepField.clientWidth,
+            height: sheepField.clientHeight
+        };
+    }
+
+    let fieldSize = getFieldSize();
+
+    // 初期の羊データ
+    let sheepData = [];
+
+    function initSheep() {
+        SHEEP_SIZE = getSheepSize();
+        fieldSize = getFieldSize();
+
+        sheepData = Array.from(sheeps).map(el => {
+            const x = Math.random() * (fieldSize.width - SHEEP_SIZE);
+            const y = Math.random() * (fieldSize.height - SHEEP_SIZE);
+            const SPEED_MULTIPLIER = 2;
 
             el.style.transform = `translate(${x}px, ${y}px)`;
+
             return {
                 el, x, y,
                 dx: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1),
                 dy: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1)
             };
         });
-
-        function animate() {
-            const maxX = sheepField.clientWidth - SHEEP_SIZE;
-            const maxY = sheepField.clientHeight - SHEEP_SIZE;
-
-            sheepData.forEach(s => {
-                s.x += s.dx;
-                s.y += s.dy;
-                if (s.x <= 0 || s.x >= maxX) s.dx *= -1;
-                if (s.y <= 0 || s.y >= maxY) s.dy *= -1;
-                s.el.style.transform = `translate(${s.x}px, ${s.y}px)`;
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
     }
+
+    // resize対応
+    window.addEventListener('resize', () => {
+        SHEEP_SIZE = getSheepSize();
+        fieldSize = getFieldSize();
+
+        // 再配置（必要なら）
+        sheepData.forEach(s => {
+            // x/yが新しいサイズを超えていたら調整
+            s.x = Math.min(s.x, fieldSize.width - SHEEP_SIZE);
+            s.y = Math.min(s.y, fieldSize.height - SHEEP_SIZE);
+            s.el.style.transform = `translate(${s.x}px, ${s.y}px)`;
+        });
+    });
+
+    // アニメーション
+    function animate() {
+        const maxX = fieldSize.width - SHEEP_SIZE;
+        const maxY = fieldSize.height - SHEEP_SIZE;
+
+        sheepData.forEach(s => {
+            s.x += s.dx;
+            s.y += s.dy;
+
+            if (s.x <= 0 || s.x >= maxX) s.dx *= -1;
+            if (s.y <= 0 || s.y >= maxY) s.dy *= -1;
+
+            s.el.style.transform = `translate(${s.x}px, ${s.y}px)`;
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    // 初期化と開始
+    initSheep();
+    animate();
 
 });
