@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         correctSheep = sheeps[index];
         const hintDiv = document.getElementById('quizHint');
         if (correctSheep.dataset.name && hintDiv) {
-            hintDiv.innerText = `${correctSheep.dataset.name} はどこ？`;
+            hintDiv.innerText = `羊を探そう\n${correctSheep.dataset.name} はどこ？`;
         }
     }
 
@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== 羊アニメーション =====
     const sheepField = document.getElementById('sheepField');
-    const sheeps = document.querySelectorAll('.sheep');
 
     if (!sheepField || sheeps.length === 0) throw new Error("sheepField or sheeps not found");
 
