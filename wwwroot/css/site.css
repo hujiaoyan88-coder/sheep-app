@@ -71,6 +71,10 @@ main {
 body {
     margin-bottom: 60px;
     overflow-y: auto; /* ← スクロール復活 */
+    font-family: "Meiryo", 
+        "メイリオ", "Hiragino Kaku Gothic ProN", 
+        "Hiragino Sans", "Yu Gothic", 
+        system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .side-menu {
