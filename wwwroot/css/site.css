@@ -79,6 +79,8 @@ body {
 
 .side-menu {
     width: 25vw; /* ← 画面の1/4 */
+    min-width: 240px;
+    max-width: 320px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -120,11 +122,13 @@ body {
 form.sign p {
     margin: 10px; /* <p>の上下の余白をなくす */
     padding: 0;
+    font-size: 1.1em;
     line-height: 1; /* 行間を詰める */
 }
 
 form.sign input, form.sign button {
     vertical-align: middle; /* 水平方向に揃える */
+    font-size: 1.1em;
 }
 
 .color-picker {
@@ -145,13 +149,14 @@ form.sign input, form.sign button {
     gap: 8px;
     text-align: center;
     line-height: 1;
+    font-size: clamp(18px, 4vw, 40px);
 }
 
 
 /* ===== 羊 ===== */
 #sheepField {
     flex: 1; /* ← 残り全部 = 3/4 */
-    height: 100vh;
+    min-height: 0;
     position: relative;
     overflow: hidden;
     background-image: url('../images/芝生.png');

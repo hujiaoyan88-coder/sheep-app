@@ -76,6 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== クイズ判定 =====
+
+    function fitTextToSign(signEl) {
+        if (!signEl) return;
+
+        let fontSize = parseFloat(getComputedStyle(signEl).fontSize);
+        const MIN_FONT = 14;
+
+        while (
+            signEl.scrollHeight > signEl.clientHeight &&
+            fontSize > MIN_FONT
+        ) {
+            fontSize -= 1;
+            signEl.style.fontSize = fontSize + 'px';
+        }
+    }
+
+
     const today = new Date().toISOString().slice(0, 10);
     const quizStorageKey = "sheepQuizDone";
     const now = new Date();
@@ -92,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             hintDiv.innerText = `羊を探そう\n${correctSheep.dataset.name} はどこ？`;
         }
     }
+
+    fitTextToSign(document.getElementById('quizSign'))
 
     window.checkSheep = (el) => {
         // 羊要素以外は無視
