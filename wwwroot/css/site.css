@@ -59,6 +59,7 @@ html {
 .layout {
     display: flex;
     align-items: flex-start;
+    min-height: 100vh;
 }
 
 main {
@@ -98,7 +99,7 @@ body {
     display: flex; /* 看板の中央にテキスト配置 */
     justify-content: center;
     align-items: center;
-    padding: 10%; /* ← 内側の余白 */
+    padding: 16px; /* ← 内側の余白 */
     overflow: hidden;
     text-align: center;
     font-size: clamp(16px, 5vw, 48px); /* 画面サイズに応じてフォントサイズを調整 */
@@ -128,7 +129,7 @@ form.sign p {
 
 form.sign input, form.sign button {
     vertical-align: middle; /* 水平方向に揃える */
-    font-size: 1.1em;
+    font-size: 1rem;
 }
 
 .color-picker {
