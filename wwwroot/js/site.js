@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 初期化関数
     function getSheepSize() {
-        return window.innerWidth <= 768 ? 80 : 240;
+        return window.innerWidth <= 500 ? 80 : 240;
     }
 
     let SHEEP_SIZE = getSheepSize();
