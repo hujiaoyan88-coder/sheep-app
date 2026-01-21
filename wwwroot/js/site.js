@@ -139,9 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!sheepField || sheeps.length === 0) throw new Error("sheepField or sheeps not found");
 
     // 初期化関数
-    function getSheepSize() {
-        return window.innerWidth <= 500 ? 80 : 240;
-    }
+    function getSheepSize(){
+  const shortSide = Math.min(window.innerWidth, window.innerHeight);
+
+  // スマホ判定（縦・横）
+  if (shortSide <= 500) {
+    return 80;   // スマホは常に小さく
+  }
+
+  return 240;    // PC・タブレット
+}
+
 
     let SHEEP_SIZE = getSheepSize();
 
