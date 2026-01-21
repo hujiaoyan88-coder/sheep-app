@@ -177,6 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             el.style.transform = `translate(${x}px, ${y}px)`;
 
+            el.style.width = SHEEP_SIZE + 'px';
+            el.style.height = SHEEP_SIZE + 'px';
+
+            const img = el.querySelector('img.base');
+            if (img) {
+              img.style.width = SHEEP_SIZE + 'px';
+              img.style.height = SHEEP_SIZE + 'px';
+            }
+            
             function randomSpeed() {
                 const base = Math.random() * 0.5 + 0.25;
                 const dir = Math.random() < 0.5 ? -1 : 1;
@@ -195,6 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         SHEEP_SIZE = getSheepSize();
         fieldSize = getFieldSize();
+
+        sheepData.forEach(s => {
+        s.el.style.width = SHEEP_SIZE + 'px';
+        s.el.style.height = SHEEP_SIZE + 'px';
+
+        const img = s.el.querySelector('img.base');
+        if (img) {
+          img.style.width = SHEEP_SIZE + 'px';
+          img.style.height = SHEEP_SIZE + 'px';
+        }
+      });
 
         // 再配置（必要なら）
         sheepData.forEach(s => {
