@@ -165,15 +165,21 @@ document.addEventListener('DOMContentLoaded', () => {
         sheepData = Array.from(sheeps).map(el => {
             const x = Math.random() * (fieldSize.width - SHEEP_SIZE);
             const y = Math.random() * (fieldSize.height - SHEEP_SIZE);
-            const SPEED_MULTIPLIER = 2;
+            const SPEED_MULTIPLIER = window.innerWidth <= 768 ? 1 : 2;
 
             el.style.transform = `translate(${x}px, ${y}px)`;
 
-            return {
-                el, x, y,
-                dx: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1),
-                dy: (Math.random() * 0.5 + 0.25) * SPEED_MULTIPLIER * (Math.random() < 0.5 ? 1 : -1)
-            };
+            function randomSpeed() {
+                const base = Math.random() * 0.5 + 0.25;
+                const dir = Math.random() < 0.5 ? -1 : 1;
+                return base * SPEED_MULTIPLIER * dir;
+            }
+
+             return {
+                    el,x, y,
+                    dx: randomSpeed(),
+                     dy: randomSpeed()
+                };
         });
     }
 
