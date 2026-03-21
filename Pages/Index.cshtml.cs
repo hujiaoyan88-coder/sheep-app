@@ -101,7 +101,7 @@ namespace sheep.Pages
             {
                 PdfHelper.ExportSheepListToPdf(outputPath, sheeps);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 TempData["ErrorMessage"] = "PDF出力中にエラーが発生しました: " + ex.Message;
                 return RedirectToPage();
