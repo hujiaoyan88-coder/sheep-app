@@ -84,7 +84,25 @@ namespace sheep.Pages
             return RedirectToPage();
         }
 
+        public async Task<IActionResult> OnPostExportPdfAsync()
+        {
+            var userId = _userManager.GetUserId(User);
 
+            var sheeps = await _db.Sheeps
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
+
+            if (sheeps.Count == 0)
+            {
+                TempData["ErrorMessage"] = "出力する羊がいません。";
+                return RedirectToPage();
+            }
+
+            var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "sheep_list.pdf");
+            PdfHelper.ExportSheepListToPdf(outputPath, sheeps); // タプル不要
+
+            return File(System.IO.File.ReadAllBytes(outputPath), "application/pdf", "sheep_list.pdf");
+        }
 
 
 
