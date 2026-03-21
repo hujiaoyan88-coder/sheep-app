@@ -87,33 +87,26 @@ namespace sheep.Pages
         public async Task<IActionResult> OnPostExportPdfAsync()
         {
             var userId = _userManager.GetUserId(User);
+            var sheeps = await _db.Sheeps.Where(s => s.UserId == userId).ToListAsync();
 
-            var sheeps = await _db.Sheeps
-                .Where(s => s.UserId == userId)
-                .ToListAsync();
-
-            if (sheeps.Count == 0)
+            if (!sheeps.Any())
             {
-                TempData["ErrorMessage"] = "出力する羊がいません。";
+                TempData["ErrorMessage"] = "出力する羊がいません";
                 return RedirectToPage();
             }
 
-            // PDF出力
             var outputPath = Path.Combine(Path.GetTempPath(), "sheep_list.pdf");
 
             try
             {
-                // ここでPDFを生成
                 PdfHelper.ExportSheepListToPdf(outputPath, sheeps);
             }
             catch (Exception ex)
             {
-                // 例外発生時はメッセージを画面に表示
                 TempData["ErrorMessage"] = "PDF出力中にエラーが発生しました: " + ex.Message;
                 return RedirectToPage();
             }
 
-            // 成功時はPDFをダウンロード
             return File(System.IO.File.ReadAllBytes(outputPath), "application/pdf", "sheep_list.pdf");
         }
 

@@ -1,49 +1,59 @@
-﻿using System;
+﻿using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using sheep.Data;
 using System.Collections.Generic;
 using System.IO;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using iText.Kernel.Font;
-using iText.IO.Font;
-using iText.IO.Font.Constants;
-using sheep.Data;
 
 public static class PdfHelper
 {
     public static void ExportSheepListToPdf(string outputPath, List<SheepEntity> sheeps)
     {
-        using var pdfDoc = new PdfDocument(new PdfWriter(outputPath));
-        var document = new Document(pdfDoc);
+        if (sheeps == null || sheeps.Count == 0)
+            throw new ArgumentException("出力する羊データがありません");
 
-        PdfFont font;
-
-        try
+        using (var fs = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None))
         {
-            var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc");
-            font = PdfFontFactory.CreateFont(fontPath + ",0", PdfEncodings.IDENTITY_H);
+            Document doc = new Document(PageSize.A4);
+            PdfWriter.GetInstance(doc, fs);
+            doc.Open();
+
+            // 日本語フォント
+            BaseFont bf;
+            try
+            {
+                // プロジェクト内 Fonts フォルダに msgothic.ttc を置く
+                bf = BaseFont.CreateFont(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc") + ",0",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                );
+            }
+            catch
+            {
+                bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false);
+            }
+
+            var font = new iTextSharp.text.Font(bf, 12);
+
+            // 表を作る
+            PdfPTable table = new PdfPTable(2);
+            table.WidthPercentage = 100;
+
+            // ヘッダー
+            table.AddCell(new PdfPCell(new Phrase("名前", font)) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            table.AddCell(new PdfPCell(new Phrase("色", font)) { BackgroundColor = BaseColor.LIGHT_GRAY });
+
+            // データ行
+            foreach (var sheep in sheeps)
+            {
+                table.AddCell(new PdfPCell(new Phrase(sheep.Name ?? "-", font)));
+                table.AddCell(new PdfPCell(new Phrase(sheep.Color ?? "-", font)));
+            }
+
+            doc.Add(table);
+            doc.Close();
         }
-        catch (Exception ex)
-        {
-            // ここでログに出力すると原因がわかる
-            Console.WriteLine("フォント読み込みエラー: " + ex.Message);
-            font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
-        }
-
-        document.SetFont(font);
-
-        Table table = new Table(UnitValue.CreatePercentArray(2)).UseAllAvailableWidth();
-        table.AddHeaderCell(new Cell().Add(new Paragraph("名前").SetFont(font)));
-        table.AddHeaderCell(new Cell().Add(new Paragraph("色").SetFont(font)));
-
-        foreach (var sheep in sheeps)
-        {
-            table.AddCell(new Cell().Add(new Paragraph(sheep.Name).SetFont(font)));
-            table.AddCell(new Cell().Add(new Paragraph(sheep.Color).SetFont(font)));
-        }
-
-        document.Add(table);
-        document.Close();
     }
 }
