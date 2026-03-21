@@ -17,20 +17,26 @@ public static class PdfHelper
         using var pdfDoc = new PdfDocument(new PdfWriter(outputPath));
         var document = new Document(pdfDoc);
 
-        // 日本語フォント
-        var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc");
-        PdfFont font = PdfFontFactory.CreateFont(fontPath + ",0", PdfEncodings.IDENTITY_H);
+        PdfFont font;
+
+        try
+        {
+            var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc");
+            font = PdfFontFactory.CreateFont(fontPath + ",0", PdfEncodings.IDENTITY_H);
+        }
+        catch (Exception ex)
+        {
+            // ここでログに出力すると原因がわかる
+            Console.WriteLine("フォント読み込みエラー: " + ex.Message);
+            font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+        }
 
         document.SetFont(font);
 
-        // 表作成（列2つ）
         Table table = new Table(UnitValue.CreatePercentArray(2)).UseAllAvailableWidth();
-
-        // ヘッダーセルは Bold フォントを指定
         table.AddHeaderCell(new Cell().Add(new Paragraph("名前").SetFont(font)));
         table.AddHeaderCell(new Cell().Add(new Paragraph("色").SetFont(font)));
 
-        // データ行
         foreach (var sheep in sheeps)
         {
             table.AddCell(new Cell().Add(new Paragraph(sheep.Name).SetFont(font)));
