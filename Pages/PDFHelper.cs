@@ -18,19 +18,8 @@ public static class PdfHelper
         var document = new Document(pdfDoc);
 
         // 日本語フォント
-        PdfFont font;
-        PdfFont boldFont;
-        try
-        {
-            // 日本語フォントを使用
-            font = PdfFontFactory.CreateFont("C:/Windows/Fonts/msgothic.ttc,0", PdfEncodings.IDENTITY_H);
-            boldFont = PdfFontFactory.CreateFont("C:/Windows/Fonts/msgothic.ttc,0", PdfEncodings.IDENTITY_H); // 太字は後でStyleで設定
-        }
-        catch
-        {
-            font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
-            boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-        }
+        var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc");
+        PdfFont font = PdfFontFactory.CreateFont(fontPath + ",0", PdfEncodings.IDENTITY_H);
 
         document.SetFont(font);
 
@@ -38,8 +27,8 @@ public static class PdfHelper
         Table table = new Table(UnitValue.CreatePercentArray(2)).UseAllAvailableWidth();
 
         // ヘッダーセルは Bold フォントを指定
-        table.AddHeaderCell(new Cell().Add(new Paragraph("名前").SetFont(boldFont)));
-        table.AddHeaderCell(new Cell().Add(new Paragraph("色").SetFont(boldFont)));
+        table.AddHeaderCell(new Cell().Add(new Paragraph("名前").SetFont(font)));
+        table.AddHeaderCell(new Cell().Add(new Paragraph("色").SetFont(font)));
 
         // データ行
         foreach (var sheep in sheeps)
