@@ -38,7 +38,6 @@ public static class PdfHelper
             if (!File.Exists(fontPath))
                 throw new FileNotFoundException("フォントファイルが見つかりません", fontPath);
 
-            BaseFont bf = BaseFont.CreateFont(fontPath + ",0", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             Font font = new Font(bf, 12);
             Font headerFont = new Font(bf, 12, Font.BOLD);
 
