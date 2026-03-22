@@ -18,25 +18,14 @@ public static class PdfHelper
             Document doc = new Document(PageSize.A4, 36, 36, 36, 36); // マージン付き
             PdfWriter.GetInstance(doc, fs);
             doc.Open();
-
-            // フォント読み込み
-            BaseFont bf;
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var fontStream = assembly.GetManifestResourceStream("WebApplication5.Fonts.msgothic.ttc"))
-            {
-                if (fontStream == null)
-                    throw new FileNotFoundException("埋め込みフォントが見つかりません");
-
-                var fontData = new byte[fontStream.Length];
-                fontStream.Read(fontData, 0, fontData.Length);
-
-                bf = BaseFont.CreateFont("msgothic.ttc", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, true, fontData, null);
-            }
+       
 
             // 日本語フォント（絶対に存在するフォントを使用）
             string fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "msgothic.ttc");
             if (!File.Exists(fontPath))
                 throw new FileNotFoundException("フォントファイルが見つかりません", fontPath);
+
+            BaseFont bf = BaseFont.CreateFont(fontPath + ",0", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             Font font = new Font(bf, 12);
             Font headerFont = new Font(bf, 12, Font.BOLD);
