@@ -37,14 +37,18 @@ public static class PdfHelper
             table.WidthPercentage = 100;
 
             // ヘッダー
-            table.AddCell(new PdfPCell(new Phrase("名前", font)) { BackgroundColor = BaseColor.LIGHT_GRAY });
-            table.AddCell(new PdfPCell(new Phrase("色", font)) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            var headerFont = new iTextSharp.text.Font(bf, 12, Font.BOLD);
+            table.AddCell(new PdfPCell(new Phrase("名前", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            table.AddCell(new PdfPCell(new Phrase("色", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
 
             // データ行
             foreach (var sheep in sheeps)
             {
-                table.AddCell(new PdfPCell(new Phrase(sheep.Name ?? "-", font)));
-                table.AddCell(new PdfPCell(new Phrase(sheep.Color ?? "-", font)));
+                var name = string.IsNullOrWhiteSpace(sheep.Name) ? "-" : sheep.Name;
+                var color = string.IsNullOrWhiteSpace(sheep.Color) ? "-" : sheep.Color;
+
+                table.AddCell(new PdfPCell(new Phrase(name, font)));
+                table.AddCell(new PdfPCell(new Phrase(color, font)));
             }
 
             doc.Add(table);
